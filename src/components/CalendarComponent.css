@@ -1,0 +1,29 @@
+.calendar-container {
+    padding: 1rem;
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .calendar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .add-appointment-btn {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-appointment-btn:hover {
+    background-color: #0056b3;
+  }
+  

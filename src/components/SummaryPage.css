@@ -1,0 +1,65 @@
+/* Container styles */
+.summary-page-container {
+    padding: 24px;
+    background-color: #f7f7f7;
+    min-height: 100vh;
+  }
+  
+  .summary-page-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Title styles */
+  .summary-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+    color: #007bff;
+  }
+  
+  /* No appointments message */
+  .no-appointments {
+    text-align: center;
+    color: #6c757d;
+  }
+  
+  /* Table container */
+  .appointments-table-container {
+    overflow-y: auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+  }
+  
+  /* Table styles */
+  .appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-header {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .table-cell {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .table-row:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .odd-row {
+    background-color: #f9f9f9;
+  }
+  
+  .even-row {
+    background-color: #ffffff;
+  }
+  
