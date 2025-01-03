@@ -3,9 +3,9 @@ import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import "./AppointmentModal.css"; // Import custom CSS
 
-const AppointmentModal = ({ closeModal, onSave }) => {
+const AppointmentModal = ({ closeModal, onSave ,doctors }) => {
   const [formData, setFormData] = useState({
-    doctorName: "test",
+    doctorId: '',
     patientName: "",
     startDate: new Date(),
     endDate: new Date(),
@@ -100,6 +100,26 @@ const AppointmentModal = ({ closeModal, onSave }) => {
                 isValidDate={isEndDateValid}
                 required
               />
+            </div>
+          </div>
+
+            {/* Doctor Selection Dropdown */}
+            <div className="form-row">
+            <div className="form-group">
+              <label>Doctor</label>
+              <select
+                name="doctorId" // Use doctorId instead of doctorName
+                value={formData.doctorId}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Doctor</option>
+                {doctors.map((doctor) => (
+                  <option key={doctor._id} value={doctor._id}> {/* Use doctor._id as value */}
+                    {doctor.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 

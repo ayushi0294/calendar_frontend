@@ -1,11 +1,33 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: `${process.env.REACT_APP_BASE_API_URL}/api`  || 'http://localhost:5000/api',
+   baseURL:
+    `${process.env.REACT_APP_BASE_API_URL}/api` 
+    ||
+     'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
+
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  if (role) {
+    config.headers['Role'] = role;
+  }
+
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+
 
 export const apiGet = async (url) => {
 
@@ -47,3 +69,4 @@ export const apiDelete = async (url) => {
     throw error;
   }
 };
+

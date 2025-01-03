@@ -47,7 +47,7 @@ const SummaryPage = () => {
                     <td className="table-cell">
                       {appointment.diagnosis.notes || "N/A"}
                     </td>
-                    <td className="table-cell">{appointment.doctorName}</td>
+                    <td className="table-cell">{appointment.doctorId.name}</td>
                   </tr>
                 ))}
               </tbody>

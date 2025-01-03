@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { apiGet, apiPost, apiPut, apiDelete } from '../utils/api';
 
 const useAppointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [doctors,setDoctors]=useState([])
 
   // Fetch appointments from the API
   useEffect(() => {
@@ -49,7 +50,20 @@ const useAppointments = () => {
     }
   };
 
-  return { appointments, addAppointment, updateAppointment, deleteAppointment };
+  const fetchDoctors = useCallback(() => {
+    const fetchData = async () => {
+      try {
+        const data = await apiGet('/users'); // Replace with your actual API call function
+        setDoctors(data); // Assuming setDoctors is a state setter
+      } catch (error) {
+        console.error('Failed to fetch doctors:', error);
+      }
+    };
+  
+    fetchData(); // Call the async function
+  }, []); 
+ 
+  return { appointments, addAppointment, updateAppointment, deleteAppointment ,fetchDoctors ,doctors};
 };
 
 export default useAppointments;

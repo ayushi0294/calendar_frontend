@@ -1,0 +1,40 @@
+/* Ensures the logout button is aligned to the left */
+.logout-container {
+    position: fixed; /* Fixes the position */
+    top: 10px; /* 10px from the top */
+    left: 10px; /* 10px from the left */
+    z-index: 1000; /* Ensure the button is above other elements */
+  }
+  
+  /* Style for the logout button */
+  .logout-btn {
+    background-color: #007bff; /* Blue background for the button */
+    color: white;
+    border: none;
+    padding: 12px 24px; /* More padding for a larger button */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    cursor: pointer;
+    font-size: 1rem; /* Adjust the font size */
+    font-weight: bold; /* Make the text bold */
+    transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  /* Hover effect */
+  .logout-btn:hover {
+    background-color: #0056b3; /* Darker blue when hovered */
+    transform: translateY(-2px); /* Slight lift effect */
+  }
+  
+  /* Focus effect */
+  .logout-btn:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px 2px rgba(0, 123, 255, 0.5); /* Add blue shadow on focus */
+  }
+  
+  /* Disabled state */
+  .logout-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  

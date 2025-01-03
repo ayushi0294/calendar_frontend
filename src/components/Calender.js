@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
@@ -14,16 +14,23 @@ const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
 
 const CalendarComponent = () => {
-  const { appointments, addAppointment, updateAppointment, deleteAppointment } = useAppointments();
+  const { appointments, addAppointment, updateAppointment, deleteAppointment ,doctors,fetchDoctors } = useAppointments();
   const { events, setEvents } = useEventHandlers(appointments);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [deleteEvent, setDeleteEvent] = useState(null);
+  
+  useEffect(()=>{
+    if(modalIsOpen){
+      fetchDoctors()
+    }
+  },[modalIsOpen,fetchDoctors])
 
   const handleEventDrop = ({ event, start, end }) => {
     const updatedEvent = { ...event, startDate: start, endDate: end };
     updateAppointment(event.id, updatedEvent);
   };
+
 
   const handleDeleteEvent = async () => {
     try {
@@ -70,6 +77,7 @@ const CalendarComponent = () => {
           closeModal={() => setModalIsOpen(false)}
           onSave={addAppointment}
           event={selectedEvent}
+          doctors={doctors}
         />
       )}
 

@@ -1,29 +1,62 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/Login';
+import Signup from './components/Register';
 import CalendarComponent from './components/Calender';
 import SummaryPage from './components/Summary';
+import Logout from './components/Logout';
 
+function App() {
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [role, setRole] = useState(localStorage.getItem('role'));
 
-const App = () => {
-  console.log("process.env",process.env)
+  // PrivateRoute component for checking both token and role
+  const PrivateRoute = ({ element, redirectTo, allowedRoles }) => {
+    if (!token) {
+      return <Navigate to={redirectTo} />;
+    }
+
+    // Check if the user's role is in allowedRoles
+    if (allowedRoles && !allowedRoles.includes(role)) {
+      return <Navigate to={redirectTo} />;
+    }
+
+    return element;
+  };
+
   return (
     <Router>
       <div style={{ padding: '16px' }}>
-        <nav style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
-          <Link to="/" style={{ color: '#1d4ed8', textDecoration: 'none' }}>
-            Calendar
-          </Link>
-          <Link to="/summary" style={{ color: '#1d4ed8', textDecoration: 'none' }}>
-            Summary
-          </Link>
-        </nav>
+        {/* Show logout button if user is logged in */}
+        {token && <Logout setToken={setToken} setRole={setRole} />}
+
         <Routes>
-          <Route path="/" element={<CalendarComponent />} />
-          <Route path="/summary" element={<SummaryPage />} />
+          {/* Public Routes */}
+          <Route path="/login" element={<Login setToken={setToken} setRole={setRole} />} />
+          <Route path="/" element={<Signup />} />
+
+          {/* Private Routes */}
+          <Route path="/calender" element={
+            <PrivateRoute
+              element={<CalendarComponent />}
+              redirectTo="/login"
+              allowedRoles={['user']} // Only users with 'user' role can access the calendar
+            />
+          } />
+          <Route path="/summary" element={
+            <PrivateRoute
+              element={<SummaryPage />}
+              redirectTo="/login"
+              allowedRoles={['doctor']} // Only users with 'doctor' role can access the summary
+            />
+          } />
+
+          {/* Redirect to login if user is not authenticated */}
+          <Route path="/" element={<Navigate to={token ? (role === 'user' ? '/calender' : '/summary') : '/login'} />} />
         </Routes>
       </div>
     </Router>
   );
-};
+}
 
 export default App;
